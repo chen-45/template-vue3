@@ -9,42 +9,42 @@ import screenfull from 'screenfull'
 
 export default {
   name: 'Screenfull',
-  data() {
+  data () {
     return {
-      isFullscreen: false
+      isFullscreen: false,
     }
   },
-  mounted() {
+  mounted () {
     this.init()
   },
-  beforeDestroy() {
+  beforeUnmount () {
     this.destroy()
   },
   methods: {
-    click() {
-      if (!screenfull.enabled) {
+    click () {
+      if (!screenfull.isEnabled) {
         this.$message({
           message: 'you browser can not work',
-          type: 'warning'
+          type: 'warning',
         })
         return false
       }
       screenfull.toggle()
     },
-    change() {
+    change () {
       this.isFullscreen = screenfull.isFullscreen
     },
-    init() {
-      if (screenfull.enabled) {
+    init () {
+      if (screenfull.isEnabled) {
         screenfull.on('change', this.change)
       }
     },
-    destroy() {
-      if (screenfull.enabled) {
+    destroy () {
+      if (screenfull.isEnabled) {
         screenfull.off('change', this.change)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

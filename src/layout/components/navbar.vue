@@ -2,8 +2,7 @@
   <div class="navbar">
     <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
-
+     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     <div class="right-menu">
       <template v-if="device!=='mobile'">
 
@@ -21,19 +20,10 @@
         <template #dropdown>
         <el-dropdown-menu>
           <router-link to="/profile/index">
-            <el-dropdown-item>Profile</el-dropdown-item>
+            <el-dropdown-item>个人资料</el-dropdown-item>
           </router-link>
-          <router-link to="/">
-            <el-dropdown-item>Dashboard</el-dropdown-item>
-          </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
           <el-dropdown-item divided @click="logout">
-            <span style="display:block;">Log Out</span>
+            <span style="display:block;">退出登陆</span>
           </el-dropdown-item>
         </el-dropdown-menu>
         </template>
@@ -67,6 +57,7 @@ export default {
     const device = computed(() => store.getters.sidebar)
 
     function toggleSideBar () {
+      console.log('heheh', store)
       store.dispatch('app/toggleSideBar')
     }
     async function logout () {
@@ -84,7 +75,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .navbar {
   height: 50px;
   overflow: hidden;
@@ -106,6 +97,7 @@ export default {
   }
 
   .breadcrumb-container {
+    line-height: 50px;
     float: left;
   }
 

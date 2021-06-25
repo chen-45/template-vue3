@@ -27,6 +27,19 @@ export const constantRoutes: RouteRecordRaw[] = [
     component: () => import('../views/login/index.vue'),
     meta: { hidden: true },
   },
+  {
+    path: '/redirect',
+    component: Layout,
+    meta: {
+      hidden: true,
+    },
+    children: [
+      {
+        path: '/redirect/:path(.*)',
+        component: () => import('@/views/redirect/index.vue'),
+      },
+    ],
+  },
   { path: '/:pathMatch(.*)*', component: NotFound, meta: { hidden: true } },
   {
     path: '/',
@@ -50,44 +63,15 @@ export const constantRoutes: RouteRecordRaw[] = [
 ]
 
 export const asyncRoutes: RouteRecordRaw[] = [
-  {
-    path: '/error',
-    component: Layout,
-    meta: {
-      title: '错误页面',
-      icon: 'bug',
-    },
-    children: [
-      {
-        path: '403',
-        name: 'bug',
-        meta: {
-          title: '403页面',
-          icon: '404',
-          hidden: true,
-        },
-        component: () => import('../views/error/403.vue'),
-      },
-      {
-        path: '404',
-        name: 'NotFound',
-        meta: {
-          title: '404页面',
-          icon: '404',
-        },
-        component: () => import('../views/error/404.vue'),
-      },
-    ],
-  },
+
   {
     path: '/manage',
     component: Layout,
     meta: {
       title: '管理',
-      icon: 'folder',
+      icon: 'link',
       // roles: ['admin']
     },
-    redirect: '/manage/wallet',
     children: [
       {
         path: 'wallet',
@@ -98,7 +82,7 @@ export const asyncRoutes: RouteRecordRaw[] = [
         },
         children: [
           {
-            path: '',
+            path: 'detail',
             component: () => import('../views/manage/wallet/detail.vue'),
             meta: {
               title: '钱包详情',
@@ -115,6 +99,53 @@ export const asyncRoutes: RouteRecordRaw[] = [
           },
 
         ],
+      },
+    ],
+  },
+  {
+    path: '/department',
+    component: Layout,
+    meta: {
+      title: '部门管理',
+      icon: 'guide',
+    },
+    children: [
+      {
+        path: 'list',
+        component: () => import('../views/department/index.vue'),
+        meta: {
+          title: '部门列表',
+          icon: 'list',
+        },
+      },
+
+    ],
+  },
+  {
+    path: '/error',
+    component: Layout,
+    meta: {
+      title: '错误页面',
+      icon: 'bug',
+    },
+    children: [
+      {
+        path: '403',
+        name: 'bug',
+        meta: {
+          title: '401页面',
+          icon: '404',
+        },
+        component: () => import('../views/error/401.vue'),
+      },
+      {
+        path: '404',
+        name: 'NotFound',
+        meta: {
+          title: '404页面',
+          icon: '404',
+        },
+        component: () => import('../views/error/404.vue'),
       },
     ],
   },

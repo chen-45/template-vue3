@@ -1,26 +1,30 @@
 <template>
-  <el-menu
-    class="menu"
-    :default-active="activeMenu"
-    :mode="sidebar.mode"
-    background-color="#304156"
-    text-color="#bfcbd9"
-    active-text-color="#409EFF"
-    menu-trigger="click"
-    :collapse="!sidebar.opened"
-    @select="handleSelect"
-  >
-    <MenuItem
-      v-for="route in routes"
-      :key="route.path"
-      :item="route"
-      :base-path="route.path"
-    />
-  </el-menu>
+  <div :class="{ 'has-logo': showLogo }">
+    <Logo v-if="showLogo" :collapse="!sidebar.opened" />
+    <el-scrollbar wrap-class="scrollbar-wrapper">
+      <el-menu
+        class="menu"
+        :default-active="activeMenu"
+        :mode="sidebar.mode"
+
+        menu-trigger="click"
+        :collapse="!sidebar.opened"
+        @select="handleSelect"
+      >
+        <MenuItem
+          v-for="route in routes"
+          :key="route.path"
+          :item="route"
+          :base-path="route.path"
+        />
+      </el-menu>
+    </el-scrollbar>
+  </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
+import Logo from './logo.vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 
@@ -29,6 +33,7 @@ export default defineComponent({
   name: 'LayoutMenu',
   components: {
     MenuItem,
+    Logo,
   },
   props: {
     mode: {
@@ -50,29 +55,80 @@ export default defineComponent({
       handleSelect,
       activeMenu,
       sidebar,
+      showLogo: true,
     }
   },
 })
 </script>
 
-<style lang='less' scoped>
-.menu {
-  height: 100%;
-  &:not(.el-menu--collapse) {
-    width: 200px;
-  }
-}
-</style>
 <style lang='less'>
 #app {
-
   .main-container {
     min-height: 100%;
-    transition: margin-left .28s;
+    transition: margin-left 0.28s;
     margin-left: var(--sideBarWidth);
     position: relative;
   }
+    .hideSidebar {
+      .sidebar-container {
+        width: 54px !important;
+      }
 
+      .main-container {
+        margin-left: 54px;
+      }
+
+      .submenu-title-noDropdown {
+        padding: 0 !important;
+        position: relative;
+
+        .el-tooltip {
+          padding: 0 !important;
+
+          .svg-icon {
+            margin-left: 20px;
+          }
+
+          .sub-el-icon {
+            margin-left: 19px;
+          }
+        }
+      }
+
+      .el-submenu {
+        overflow: hidden;
+
+        & > .el-submenu__title {
+          padding: 0 !important;
+
+          .svg-icon {
+            margin-left: 20px;
+          }
+
+          .sub-el-icon {
+            margin-left: 19px;
+          }
+
+          .el-submenu__icon-arrow {
+            display: none;
+          }
+        }
+      }
+
+      .el-menu--collapse {
+        .el-submenu {
+          & > .el-submenu__title {
+            & > span {
+              height: 0;
+              width: 0;
+              overflow: hidden;
+              visibility: hidden;
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
   .sidebar-container {
     transition: width 0.28s;
     width: var(--sideBarWidth) !important;
@@ -86,6 +142,44 @@ export default defineComponent({
     z-index: 1001;
     overflow: hidden;
     overflow-y: auto;
+
+    .scrollbar-wrapper {
+      overflow-x: hidden !important;
+      .el-scrollbar__view {
+        height: 100%;
+      }
+    }
+
+    .el-scrollbar__bar.is-vertical {
+      right: 0px;
+    }
+
+    .el-scrollbar {
+      height: 100%;
+    }
+
+    &.has-logo {
+      .el-scrollbar {
+        height: calc(100% - 50px);
+      }
+    }
+    .el-menu {
+      border: none;
+      height: 100%;
+      width: 100% !important;
+      background: var(--menuBg);
+      .el-menu-item,.el-submenu__title{
+         color:var(--menuText);
+        background-color:var(--menuBg);
+         &:hover,&:focus{
+           background-color:var(--menuHover);
+           color:var(--fontColor);
+         }
+         &.is-active{
+           color:var(--menuActiveText);
+         }
+      }
+    }
     &::-webkit-scrollbar-track-piece {
       background: var(--sideBarScrollbarTrackPiece);
     }
@@ -99,7 +193,5 @@ export default defineComponent({
       border-radius: 20px;
     }
   }
-
 }
-
 </style>

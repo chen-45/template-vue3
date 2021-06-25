@@ -1,6 +1,9 @@
 'use strict'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path')
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // const defaultSettings = require('./src/settings.js')
 
 function resolve (dir) {
@@ -60,6 +63,9 @@ module.exports = {
         '@': resolve('src'),
       },
     },
+    plugins: [
+      new BundleAnalyzerPlugin(),
+    ],
   },
   chainWebpack (config) {
     // it can improve the speed of the first screen, it is recommended to turn on preload

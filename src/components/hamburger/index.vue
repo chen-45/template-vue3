@@ -19,14 +19,18 @@ export default {
   props: {
     isActive: {
       type: Boolean,
-      default: false
+      default: false,
+    },
+  },
+  emits: ['toggleClick'],
+  setup (_, { emit }) {
+    function toggleClick () {
+      emit('toggleClick')
+    }
+    return {
+      toggleClick,
     }
   },
-  methods: {
-    toggleClick() {
-      this.$emit('toggleClick')
-    }
-  }
 }
 </script>
 

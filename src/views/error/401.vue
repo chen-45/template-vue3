@@ -3,14 +3,14 @@
 
     <div class="wscn-http404">
       <div class="pic-404">
-        <img class="pic-404__parent" src="../../assets/404.png" alt="404">
+        <img class="pic-404__parent" src="../../assets/401.png" alt="404">
         <img class="pic-404__child left" src="../../assets/404_cloud.png" alt="404">
         <img class="pic-404__child mid" src="../../assets/404_cloud.png" alt="404">
         <img class="pic-404__child right" src="../../assets/404_cloud.png" alt="404">
       </div>
       <div class="bullshit">
         <div class="bullshit__oops">抱歉!</div>
-        <div class="bullshit__headline">当前页面不存在...</div>
+        <div class="bullshit__headline">您没有操作权限...</div>
         <div class="bullshit__info">{{ message }}</div>
         <router-link class="bullshit__return-home" to="/" replace>返回首页</router-link>
       </div>
@@ -24,7 +24,7 @@ import { defineComponent } from '@vue/runtime-core'
 export default defineComponent({
   name: 'Page404',
   setup () {
-    const message = '请检查您输入的网址是否正确，或点击下面的按钮返回首页。'
+    const message = '当前帐号没有操作权限,请联系管理员。'
     return {
       message,
     }

@@ -1,11 +1,11 @@
 <template>
-  <div :class="classObj" class="app-wrapper clearfix">
+  <div :class="classObj" class="app-wrapper">
     <!-- <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside"></div> -->
     <sidebar class="sidebar-container" />
     <div :class="{hasTagsView:needTagsView}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
-        <!-- <Navbar /> -->
-        <!-- <tags-view v-if="needTagsView" /> -->
+        <Navbar />
+        <!-- <TagsView v-if="needTagsView" /> -->
       </div>
       <app-main />
       <!-- <right-panel v-if="showSettings">
@@ -16,28 +16,42 @@
 </template>
 
 <script>
-import { defineComponent } from '@vue/runtime-core'
+import { computed, defineComponent } from '@vue/runtime-core'
 import AppMain from './components/appMain.vue'
 import Sidebar from './components/sidebar/index.vue'
 import Navbar from './components/navbar.vue'
+import TagsView from './components/tagsView/index.vue'
+import { useStore } from 'vuex'
 export default defineComponent({
   name: 'BaseLayout',
   components: {
     AppMain,
     Sidebar,
     Navbar,
+    TagsView,
   },
   setup () {
+    const store = useStore()
+    const device = computed(() => store.getters.device)
+    const sidebar = computed(() => store.getters.sidebar)
+    const classObj = computed(() => {
+      return {
+        hideSidebar: !sidebar.value.opened,
+        openSidebar: sidebar.value.opened,
+        withoutAnimation: sidebar.value.withoutAnimation,
+        mobile: device.value === 'mobile',
+      }
+    })
     return {
-      needTagsView: false,
-      classObj: {},
-      fixedHeader: false,
+      needTagsView: true,
+      classObj,
+      fixedHeader: true,
     }
   },
 })
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
   .app-wrapper {
     position: relative;
     height: 100%;

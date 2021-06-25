@@ -68,7 +68,7 @@ const actions:ActionTree<AppState, any> = {
 }
 
 export default {
-  namespace: true,
+  namespaced: true,
   state,
   mutations,
   actions,

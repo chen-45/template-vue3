@@ -11,10 +11,10 @@ import Icon from './icons'
 import './permission' // permission control
 import { mockInstall } from './mock' // mock
 import './style/index.css' // css
-
+import './utils/monitor'
 const app = createApp(App)
 app
-  .use(ElementPlus)
+  .use(ElementPlus, { size: 'small' })
   .use(CustomComponent)
   .use(Icon)
   .use(mockInstall)

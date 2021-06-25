@@ -46,18 +46,14 @@ export default defineComponent({
           },
         ].concat(matched)
       }
-      console.log('match', matched)
+      console.log('match', isHome(first))
       return matched.filter(
         (item) => item.meta && item.meta.title && item.meta.breadcrumb !== false,
       )
     })
 
     function isHome (route: Partial<RouteRecordRaw>) {
-      const name = (route && route.name) as string
-      if (!name) {
-        return false
-      }
-      return name.toLowerCase() === 'Home'.toLowerCase()
+      return route.path === '/'
     }
     function pathCompile (path) {
       // To solve this problem https://github.com/PanJiaChen/vue-element-admin/issues/561

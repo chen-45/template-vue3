@@ -82,7 +82,6 @@ export default defineComponent({
     }
 
     function resolvePath (routePath) {
-      console.log('props routePath', props.basePath, routePath)
       if (isExternal(routePath)) {
         return routePath
       }
