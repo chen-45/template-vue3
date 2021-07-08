@@ -1,25 +1,56 @@
 <template>
-  <el-card class="box-card">
-    <template #header>
-      <div class="card-header">
-        <span>卡片名称</span>
-        <el-button class="button" type="text">操作按钮</el-button>
-      </div>
-    </template>
-    <div v-for="o in 4" :key="o" class="text item">
-      {{ '部门管理 ' + o }}
-    </div>
-  </el-card>
+  <div style="margin: 20px">
+    <el-input :modelValue="form.value" style="width: auto" @update:modelValue="limitDecimal" @blur='handleBlur' />
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-
+import {
+  validDecimal,
+} from '@/utils/valid'
+import {
+  defineComponent,
+  reactive,
+} from 'vue'
+import {
+  Decimal,
+} from '@/directive'
 export default defineComponent({
   name: 'Basic',
+  directives: {
+    Decimal,
+  },
+  setup () {
+    const form = reactive({
+      value: '',
+    })
+
+    function limitDecimal (value) {
+      console.log('value', value, validDecimal(value))
+      if (validDecimal(value)) {
+        form.value = value
+        console.log(1)
+      } else {
+        if (value.indexOf('.') !== value.length - 1) {
+          form.value = value.replace(/[^0-9.]/g, '').slice(0, value.length - 1)
+        } else {
+          form.value = value === '.' ? '' : value
+        }
+      }
+    }
+
+    function handleBlur () {
+      form.value = Number(form.value) + '%'
+    }
+    return {
+      form,
+      limitDecimal,
+      handleBlur,
+    }
+  },
 })
+
 </script>
 
-  <style lang='less' scoped>
-
-  </style>
+<style lang='less' scoped>
+</style>

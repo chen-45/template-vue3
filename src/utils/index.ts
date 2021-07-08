@@ -159,20 +159,6 @@ export function createUniqueString () {
   return (+(randomNum + timestamp)).toString(32)
 }
 
-export function hasClass (ele: HTMLElement, cls: string) {
-  return !!ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'))
-}
-
-export function addClass (ele: HTMLElement, cls: string) {
-  if (!hasClass(ele, cls)) ele.className += ' ' + cls
-}
-
-export function removeClass (ele: HTMLElement, cls: string) {
-  if (hasClass(ele, cls)) {
-    const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)')
-    ele.className = ele.className.replace(reg, ' ')
-  }
-}
 export function debounce (func: LoopFunc, wait = 300, immediate = false) {
   let timeout, context, args, res
 

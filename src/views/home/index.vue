@@ -4,7 +4,6 @@
 
 <script lang="ts">
 import {
-  nextTick, watch,
   defineComponent,
 } from 'vue'
 

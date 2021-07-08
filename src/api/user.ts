@@ -1,6 +1,6 @@
 import service from './request'
 
-export function getConfig (params?) {
+export function getConfig (params = {}) {
   return service({
     url: '/config',
     method: 'get',
@@ -15,7 +15,7 @@ export function login (data) {
   })
 }
 
-export function getInfo (params?) {
+export function getInfo (params = {}) {
   return service({
     url: '/userInfo',
     method: 'get',

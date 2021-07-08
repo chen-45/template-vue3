@@ -37,7 +37,7 @@ import { useStore } from 'vuex'
 import Breadcrumb from '@/components/breadcrumb/index.vue'
 
 import { computed } from '@vue/runtime-core'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import Hamburger from '@/components/hamburger/index.vue'
 // import ErrorLog from '@/components/errorLog/index.vue'
 import Screenfull from '@/components/screenfull/index.vue'
@@ -52,6 +52,7 @@ export default {
   setup () {
     const route = useRoute()
     const store = useStore()
+    const router = useRouter()
     const sidebar = computed(() => store.getters.sidebar)
     const avatar = computed(() => store.getters.sidebar)
     const device = computed(() => store.getters.sidebar)
@@ -62,7 +63,7 @@ export default {
     }
     async function logout () {
       await store.dispatch('user/logout')
-      this.$router.push(`/login?redirect=${route.fullPath}`)
+      router.push(`/login?redirect=${route.fullPath}`)
     }
     return {
       device,

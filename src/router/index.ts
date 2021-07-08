@@ -118,6 +118,14 @@ export const asyncRoutes: RouteRecordRaw[] = [
           icon: 'list',
         },
       },
+      {
+        path: 'detail',
+        component: () => import('../views/department/detail.vue'),
+        meta: {
+          title: '部门详情',
+          icon: 'documentation',
+        },
+      },
 
     ],
   },

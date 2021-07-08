@@ -41,7 +41,7 @@ export function param2Obj (url) {
 export function mockInstall () {
   if (process.env.VUE_APP_MOCK) {
     for (const i of mocks) {
-      const url = new RegExp(i.path)
+      const url = process.env.VUE_APP_BASE_API + i.path
       const type = i.type || 'get'
       console.log('url', url)
       Mock.mock(url, type, i.response)

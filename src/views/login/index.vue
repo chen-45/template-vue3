@@ -43,7 +43,6 @@
 </template>
 
 <script lang="ts">
-import { getConfig } from '@/api/user'
 import {
   computed,
   defineComponent,
@@ -92,7 +91,7 @@ export default defineComponent({
       })
     }
     onMounted(() => {
-      getConfig()
+      console.log('login mounted')
     })
     return {
       formData,

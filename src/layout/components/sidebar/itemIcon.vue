@@ -13,10 +13,12 @@ export default defineComponent({
   props: {
     icon: {
       type: String,
-      default: '',
+      default: 'unknown',
     },
   },
   setup (props) {
+    // const isElIcon = computed(() => props.icon.includes('el-icon'))
+
     const isElIcon = computed(() => (props.icon as string).includes('el-icon'))
     return {
       isElIcon,

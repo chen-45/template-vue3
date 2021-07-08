@@ -1,0 +1,53 @@
+/* istanbul ignore next */
+export const on = function (
+  element: HTMLElement | Document | Window,
+  event: string,
+  handler: EventListenerOrEventListenerObject,
+  useCapture = false,
+): void {
+  if (element && event && handler) {
+    element.addEventListener(event, handler, useCapture)
+  }
+}
+
+/* istanbul ignore next */
+export const off = function (
+  element: HTMLElement | Document | Window,
+  event: string,
+  handler: EventListenerOrEventListenerObject,
+  useCapture = false,
+): void {
+  if (element && event && handler) {
+    element.removeEventListener(event, handler, useCapture)
+  }
+}
+
+/* istanbul ignore next */
+export const once = function (
+  el: HTMLElement,
+  event: string,
+  fn: EventListener,
+): void {
+  const listener = function (...args: unknown[]) {
+    if (fn) {
+      fn.apply(this, args)
+    }
+    off(el, event, listener)
+  }
+  on(el, event, listener)
+}
+
+export function hasClass (ele: HTMLElement, cls: string) {
+  return !!ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'))
+}
+
+export function addClass (ele: HTMLElement, cls: string) {
+  if (!hasClass(ele, cls)) ele.className += ' ' + cls
+}
+
+export function removeClass (ele: HTMLElement, cls: string) {
+  if (hasClass(ele, cls)) {
+    const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)')
+    ele.className = ele.className.replace(reg, ' ')
+  }
+}

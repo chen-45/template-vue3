@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="formData" ref="ruleForm" label-width="100px">
+  <el-form style='margin: 20px 0;' :model="formData" ref="ruleForm" label-width="100px">
     <el-row>
       <el-col :span="span" v-for="field in fields" :key="field.value">
         <el-form-item :label="field.label" :prop="field.value">
@@ -53,15 +53,15 @@ export default defineComponent({
     const formData = ref({})
     formData.value = deepClone(props.queryData)
     const ruleForm = ref(null)
-    const width = computed(() => ((props.span as number) / 24) * 100 * 1 + '%')
+
+    const width = computed(() => (props.span as number / 24) * 100 * 1 + '%')
     // const debounceSumbit = debounce
     function submitForm () {
-      console.log('submit', formData.value)
-      emit('getData')
+      emit('getData', formData.value)
     }
     function resetForm () {
       ruleForm.value.resetFields()
-      console.log('reset', formData.value)
+      emit('getData', formData.value)
     }
     return {
       ruleForm,
